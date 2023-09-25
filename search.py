@@ -21,41 +21,32 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
-    index_name = request.form.get('index_name') or request.form.get('index_dropdown')
+    index_pattern = request.form.get('index_name') or request.form.get('index_dropdown')
     query = request.form.get('query')
 
-    if not index_name:
-        return 'Index is required!', 400
-
-    # Constructing the appropriate query based on whether the input query is blank or not.
+    # Construct the search body based on the query
     if query:
         body = {
+            "size": 100,
             "query": {
-                "multi_match": {
+                "query_string": {
                     "query": query,
-                    "fields": ["*"]
+                    "default_field": "*"
                 }
-            },
-            "size": 100  # This will fetch 100 results. Adjust as needed.
+            }
         }
-
     else:
         body = {
-            'query': {
-                'match_all': {}
+            "query": {
+                "match_all": {}
             }
         }
 
-    response = es.search(index=index_name, body=body)
-    results = [hit['_source'] for hit in response['hits']['hits']]
+    results = es.search(index=index_pattern, body=body)
+    
+    original_url = f"http://es-dev-data01.sgdctroy.net:9200/{index_pattern}/_search?source_content_type=application/json&source={body}"
 
-    # Generate the Elasticsearch query URL
-    es_host = es.transport.hosts[0]['host']
-    es_port = es.transport.hosts[0]['port']
-    es_url = f"http://{es_host}:{es_port}/{index_name}/_search?source={json.dumps(body)}&source_content_type=application/json"
-
-    return render_template('results.html', results=results, index_name=index_name, query=query or 'All Results', es_url=es_url)
-
+    return render_template('results.html', results=results["hits"]["hits"], original_url=original_url)
 
 if __name__ == "__main__":
     app.run(debug=True)
