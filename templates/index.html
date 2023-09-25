@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elasticsearch Index Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Elasticsearch Search Interface</h1>
+
+    <!-- Search Form -->
+    <h2>Search</h2>
+    <form action="/search" method="post">
+        
+        <!-- Dropdown for selecting index -->
+        <label for="index_dropdown">Select Index:</label>
+        <select name="index_dropdown">
+            <option value="" selected>Select from dropdown</option>
+            {% for index in indices %}
+                <option value="{{ index }}">{{ index }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Textbox for manually inputting index -->
+        <label for="index_name">Or Enter Index Name:</label>
+        <input type="text" name="index_name" placeholder="Enter index name...">
+
+        <label for="query">Query:</label>
+        <input type="text" name="query" placeholder="Enter search term...">
+        
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+</body>
+</html>

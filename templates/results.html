@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results for {{ query }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Search Results in {{ index_name }}</h1>
+    <h2>Query: {{ query }}</h2>
+
+    <strong>Elasticsearch Query URL:</strong>
+    <a href="{{ es_url }}" target="_blank">{{ es_url }}</a>
+
+    <!-- Display the search results -->
+    <h2>Results</h2>
+    <ul>
+        {% for result in results %}
+            <li>
+                <pre>{{ result|tojson(indent=2) }}</pre>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Back to Search</a>
+</div>
+
+</body>
+</html>
