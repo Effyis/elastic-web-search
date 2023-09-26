@@ -58,8 +58,9 @@ def search():
     
     original_url = f"http://es-dev-data01.sgdctroy.net:9200/{index_pattern}/_search?source_content_type=application/json&source={body}"
 
-    return render_template('results.html', results=hits, original_url=original_url)
+    return render_template('results.html', results=hits, original_url=original_url, query=query)
 
+from flask import Markup
 
 if __name__ == "__main__":
     app.run(debug=True)

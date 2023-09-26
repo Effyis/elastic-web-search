@@ -21,7 +21,7 @@
                 {% if key != '_source' %}
                 <div>
                     <strong>{{ key }}:</strong> 
-                    <span class="ml-2">{{ value|tojson }}</span>
+                    <span class="ml-2">{{ value|string()|replace(query, '<span style="background-color: #ADD8E6">' + query + '</span>')|safe }}</span>
                 </div>
                 {% else %}
                 <div class="mt-2">
@@ -31,7 +31,7 @@
                     {% for sub_key, sub_value in value.items()|sort %}
                     <div>
                         <strong>{{ sub_key }}:</strong> 
-                        <span class="ml-2">{{ sub_value|tojson }}</span>
+                        <span class="ml-2">{{ sub_value|string()|replace(query, '<span style="background-color: #ADD8E6">' + query + '</span>')|safe }}</span>
                     </div>
                     {% endfor %}
                 </div>
@@ -40,6 +40,8 @@
         </div>
     </div>
     {% endfor %}
+    
+    
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
