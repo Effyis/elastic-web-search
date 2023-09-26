@@ -2,43 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
-    <!-- Bootstrap CSS for styling. -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
 <div class="container mt-4">
-
     <h2>Search Results</h2>
+    <a href="{{ original_url }}" target="_blank">View Original Query</a>
+    <hr>
 
-    <div class="mt-4">
-        <!-- Display the original Elasticsearch query URL -->
-        <p>Original Elasticsearch query: <a href="{{ original_url }}" target="_blank">{{ original_url }}</a></p>
-    </div>
-
-    {% for hit in results %}
+    {% for result in results %}
     <div class="card mb-4">
         <div class="card-body">
-            <h5 class="card-title">ID: {{ hit['_id'] }}</h5>
-            <p class="card-text">
-                <strong>Index:</strong> {{ hit['_index'] }}<br>
-                <strong>Score:</strong> {{ hit['_score'] }}<br>
-                {% for key, value in hit['_source'].items() %}
-                    <strong>{{ key }}:</strong> {{ value }}<br>
-                {% endfor %}
-            </p>
+            {% for key, value in result.items()|sort %}
+                {% if key != '_source' %}
+                <div>
+                    <strong>{{ key }}:</strong> 
+                    <span class="ml-2">{{ value|tojson }}</span>
+                </div>
+                {% else %}
+                <div class="mt-2">
+                    <strong>{{ key }}:</strong>
+                </div>
+                <div class="ml-4">
+                    {% for sub_key, sub_value in value.items()|sort %}
+                    <div>
+                        <strong>{{ sub_key }}:</strong> 
+                        <span class="ml-2">{{ sub_value|tojson }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     {% endfor %}
-
 </div>
 
-<!-- Bootstrap JS (optional) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
