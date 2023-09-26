@@ -3,30 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results for {{ query }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Search Results</title>
+    <!-- Bootstrap CSS for styling. -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
-    <h1>Search Results in {{ index_name }}</h1>
-    <h2>Query: {{ query }}</h2>
+<div class="container mt-4">
 
-    <strong>Elasticsearch Query URL:</strong>
-    <a href="{{ es_url }}" target="_blank">{{ es_url }}</a>
+    <h2>Search Results</h2>
 
-    <!-- Display the search results -->
-    <h2>Results</h2>
-    <ul>
-        {% for result in results %}
-            <li>
-                <pre>{{ result|tojson(indent=2) }}</pre>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="mt-4">
+        <!-- Display the original Elasticsearch query URL -->
+        <p>Original Elasticsearch query: <a href="{{ original_url }}" target="_blank">{{ original_url }}</a></p>
+    </div>
 
-    <a href="/">Back to Search</a>
+    {% for hit in results %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">ID: {{ hit['_id'] }}</h5>
+            <p class="card-text">
+                <strong>Index:</strong> {{ hit['_index'] }}<br>
+                <strong>Score:</strong> {{ hit['_score'] }}<br>
+                {% for key, value in hit['_source'].items() %}
+                    <strong>{{ key }}:</strong> {{ value }}<br>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+
 </div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

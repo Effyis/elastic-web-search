@@ -7,7 +7,6 @@ app = Flask(__name__)
 es = Elasticsearch(
     [{'host': 'es-dev-data01.sgdctroy.net', 'port': 9200, 'scheme': 'http'}])
 
-
 @app.route('/')
 def index():
     # Retrieve list of indices from Elasticsearch using the _cat API
@@ -17,7 +16,6 @@ def index():
     index_names = [index_info['index'] for index_info in indices]
 
     return render_template('index.html', indices=index_names)
-
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -43,10 +41,15 @@ def search():
         }
 
     results = es.search(index=index_pattern, body=body)
+    all_keys = set()
+    for hit in results["hits"]["hits"]:
+        all_keys.update(hit.keys())  # Add this to include top-level keys like _id, _index, etc.
+        all_keys.update(hit['_source'].keys())
+    all_keys = sorted(list(all_keys))
     
     original_url = f"http://es-dev-data01.sgdctroy.net:9200/{index_pattern}/_search?source_content_type=application/json&source={body}"
 
-    return render_template('results.html', results=results["hits"]["hits"], original_url=original_url)
+    return render_template('results.html', results=results["hits"]["hits"], all_keys=all_keys, original_url=original_url)
 
 if __name__ == "__main__":
     app.run(debug=True)
