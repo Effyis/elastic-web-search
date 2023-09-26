@@ -32,6 +32,10 @@
         <input type="text" name="query" id="query" placeholder="e.g. 'te*', '+name:John -age:30'">
         
         <input type="submit" value="Search">
+
+        <small class="form-text text-muted">
+            <br> Use <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank">query_string</a> syntax for advanced queries. Examples: 'te*', '+name:John -age:30', 'title:"apple orange"'. Special characters (e.g., + - && || ! ...) must be escaped with a backslash.
+        </small>
     </form>
 </div>
 
