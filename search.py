@@ -1,5 +1,7 @@
+from copy import deepcopy
 import json
-from urllib.parse import quote
+import re
+import urllib.parse
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
 
@@ -52,15 +54,48 @@ def search():
         }
 
     results = es.search(index=index_pattern, body=body)
-    
-    # Extract hits
-    hits = results["hits"]["hits"]
-    
-    original_url = f"http://es-dev-data01.sgdctroy.net:9200/{index_pattern}/_search?source_content_type=application/json&source={body}"
 
-    return render_template('results.html', results=hits, original_url=original_url, query=query)
+    processed_results = []
 
-from flask import Markup
+    for hit in results["hits"]["hits"]:
+        # Make a deep copy to preserve the original
+        original_hit = deepcopy(hit)
+        processed_hit = hyperlink_urls_in_dict(
+            hit)  # This modifies the hit in-place
+        processed_results.append({
+            "original": original_hit,
+            "display": processed_hit
+        })
+
+    body_json = json.dumps(body)
+    encoded_body = urllib.parse.quote(body_json)
+    original_url = f"http://es-dev-data01.sgdctroy.net:9200/{index_pattern}/_search?source_content_type=application/json&source={encoded_body}"
+
+    return render_template('results.html', results=processed_results, original_url=original_url, query=query)
+
+
+def hyperlink_urls_in_dict(d):
+    # Regular expression pattern for URLs
+    url_pattern = re.compile(
+        r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F])|[#])+')
+
+    # Regular expression pattern for file paths
+    filepath_pattern = re.compile(r'\/mnt\/[a-zA-Z0-9\/\.\-_]+')
+
+    for key, value in d.items():
+        if isinstance(value, dict):
+            hyperlink_urls_in_dict(value)
+        elif isinstance(value, str):
+            # Replace URLs with hyperlinks
+            d[key] = url_pattern.sub(
+                r'<a href="\g<0>" target="_blank">\g<0></a>', value)
+
+            # Replace file paths with hyperlinks (with a placeholder href for now)
+            d[key] = filepath_pattern.sub(
+                r'<a href="#" target="_blank">\g<0></a>', d[key])
+
+    return d
+
 
 if __name__ == "__main__":
     app.run(debug=True)
