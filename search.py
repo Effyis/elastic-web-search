@@ -4,10 +4,24 @@ import re
 import urllib.parse
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
+import yaml
+
+# Load configurations from config.yaml
+with open("config.yaml", 'r') as stream:
+    try:
+        config = yaml.safe_load(stream)
+    except yaml.YAMLError as exc:
+        print(exc)
+
+# Retrieve Elasticsearch configurations
+es_config = config.get("elasticsearch", {})
+host = es_config.get("host")
+port = es_config.get("port")
+scheme = es_config.get("scheme")
+index_pattern = es_config.get("index")
 
 app = Flask(__name__)
-es = Elasticsearch(
-    [{'host': 'es-dev-data01.sgdctroy.net', 'port': 9200, 'scheme': 'http'}])
+es = Elasticsearch([{'host': host, 'port': port, 'scheme': scheme}])
 
 
 @app.route('/')
@@ -17,7 +31,6 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
-    index_pattern = "boards-crawl-logs-*"
     query = request.form.get('query')
 
     # Construct the search body based on the query
