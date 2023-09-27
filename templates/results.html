@@ -7,54 +7,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .scrollable-table {
+            overflow-x: auto;
+            overflow-y: scroll;
+            height: 70vh; /* Adjust this value based on your preference */
+        }
+
+        .compact-table {
+            font-size: 0.8rem;
+            table-layout: fixed;
+        }
+
+        .compact-table td,
+        .compact-table th {
+            padding: 3px;
+            width: 100px;
+            overflow: auto;
+            white-space: nowrap;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .compact-table td::-webkit-scrollbar,
+        .compact-table th::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        .sticky-header th {
+            background-color: #f5f5f5; /* A light gray, similar to Bootstrap's table header color */
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        /* This will ensure table borders and sticky headers don't conflict */
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container mt-4">
-        <h2>Search Results for: {{ query }}</h2>
-        <a href="{{ original_url }}" target="_blank">View Original Query</a>        
+        <h2>Search Results for: <span class="font-weight-bold">{{ query }}</span> in <span class="font-weight-bold">{{ index }}</span></h2>
+        <a href="{{ original_url }}" target="_blank">View Original Query</a>
         <hr>
 
-        {% for result_pair in results %}
-        <div class="card mb-4">
-            <div class="card-body">
-                {% for key, value in result_pair["display"].items()|sort %}
-                {% if key != '_source' %}
-                <div>
-                    <strong>{{ key }}:</strong>
-                    <span class="ml-2">{{ value|string()|replace(query, '<span style="background-color: #ADD8E6">' + query + '</span>')|safe }}</span>
-                </div>
-                {% else %}
-                <div class="mt-2">
-                    <strong>{{ key }}:</strong>
-                </div>
-                <div class="ml-4">
-                    {% for sub_key, sub_value in value.items()|sort %}
-                    <div>
-                        <strong>{{ sub_key }}:</strong>
-                        <span class="ml-2">{{ sub_value|string()|replace(query, '<span style="background-color: #ADD8E6">' + query + '</span>')|safe }}</span>
-                    </div>
+        <div class="scrollable-table">
+            <table class="table table-bordered sticky-header compact-table">
+                <thead>
+                    <tr>
+                        {% set excluded_columns = ['_id', 'reportDate', 'type', '_type', '_source', '_score', '@version'] %}
+                        {% for key in results[0]["display"]|dictsort %}
+                        {% if key[0] not in excluded_columns %}
+                        <th>{{ key[0] }}</th>
+                        {% endif %}
+                        {% if key[0] == '_source' %}
+                        {% for sub_key in results[0]["display"]["_source"]|dictsort %}
+                        {% if sub_key[0] not in excluded_columns %}
+                        <th>{{ sub_key[0] }}</th>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result_pair in results %}
+                    <tr>
+                        {% for key in results[0]["display"]|dictsort %}
+                        {% if key[0] not in excluded_columns %}
+                        <td>{{ result_pair["display"].get(key[0], "")|safe }}</td>
+                        {% endif %}
+                        {% if key[0] == '_source' %}
+                        {% for sub_key in results[0]["display"]["_source"]|dictsort %}
+                        {% if sub_key[0] not in excluded_columns %}
+                        <td>{{ result_pair["display"]["_source"].get(sub_key[0], "")|safe }}</td>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        <td>
+                            <!-- Button to trigger the copy action -->
+                            <textarea id="json-{{ loop.index }}" style="position: absolute; left: -9999px;">{{ result_pair["original"]|tojson }}</textarea>
+                            <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('json-{{ loop.index }}')">Copy JSON</button>
+                        </td>
+                    </tr>
                     {% endfor %}
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-            <!-- Hidden textarea for each card -->
-            <textarea id="json-{{ loop.index }}" style="display:none;">{{ result_pair["original"]|tojson }}</textarea>
-            <div class="card-footer">
-                <button class="btn btn-secondary" onclick="copyToClipboard('{{ loop.index }}')">Copy JSON</button>
-            </div>
+                    
+                </tbody>
+            </table>
         </div>
-        {% endfor %}
-        
 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="{{ url_for('static', filename='clipboard.js') }}"></script>
 
 </body>

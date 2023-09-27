@@ -1,7 +1,6 @@
-function copyToClipboard(index) {
-    const textarea = document.getElementById('json-' + index);
-    textarea.style.display = "block";  // Temporarily display the textarea
-    textarea.select();
+function copyToClipboard(elementId) {
+    var textArea = document.getElementById(elementId);
+    textArea.select();
     document.execCommand('copy');
-    textarea.style.display = "none";  // Hide the textarea again
+    alert('JSON copied to clipboard!');
 }
