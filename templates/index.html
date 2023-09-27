@@ -1,43 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elasticsearch Index Search</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container">
+<div class="container mt-4">
     <h1>Elasticsearch Search Interface</h1>
+    <p>Searching Index: <strong>boards-crawl-logs-*</strong></p>
 
     <!-- Search Form -->
-    <h2>Search</h2>
-    <form action="/search" method="post">
+    <h2 class="mt-4">Search</h2>
+    <form action="/search" method="post" class="mb-4">
         
-        <!-- Dropdown for selecting index -->
-        <label for="index_dropdown">Select Index:</label>
-        <select name="index_dropdown">
-            <option value="" selected>Select from dropdown</option>
-            {% for index in indices %}
-                <option value="{{ index }}">{{ index }}</option>
-            {% endfor %}
-        </select>
-
-        <!-- Textbox for manually inputting index -->
-        <label for="index_name">Or Enter Index Name:</label>
-        <input type="text" name="index_name" placeholder="Enter index name...">
-
-        <label for="query">Query:</label>
-        <input type="text" name="query" id="query" placeholder="e.g. 'te*', '+name:John -age:30'">
+        <div class="form-group">
+            <label for="query">Query:</label>
+            <input type="text" name="query" id="query" class="form-control" placeholder="Enter your search query...">
+        </div>
         
-        <input type="submit" value="Search">
+        <button type="submit" class="btn btn-primary">Search</button>
 
-        <small class="form-text text-muted">
-            <br> Use <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax" target="_blank">query_string</a> syntax for advanced queries. Examples: 'te*', '+name:John -age:30', 'title:"apple orange"'. Special characters (e.g., + - && || ! ...) must be escaped with a backslash.
-        </small>
     </form>
 </div>
+
+<!-- Optional JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
