@@ -1,20 +1,20 @@
 {
-    "_id": "JBvf04oBKi916snt1p4F",
-    "_index": "boards-crawl-logs-2023.09.26",
+    "_id": "Cyt214oBsEbff3Ve82MW",
+    "_index": "boards-crawl-logs-2023.09.27",
     "_score": null,
     "_source": {
-        "@timestamp": "2023-09-26T23:59:59.878Z",
+        "@timestamp": "2023-09-27T16:33:26.978Z",
         "@version": "1",
-        "forumId": "62b4a9622ee",
-        "forumUrl": "http://tieba.baidu.com/f?kw=thombrowne##VIRTUAL#FORUMID=5a87b849315#n=50#v=28",
-        "logFileName": "/mnt/data/ftp/qsend/logs/20230926/202309262359-21388-62b4a9622ee.log",
-        "reportDate": "2023-09-27T03:59:59.000Z",
-        "siteId": "5264d42f2",
-        "siteUrl": "tieba.baidu.com/f/index/forumpark?pcn=%C9%FA%BB%EE%D3%C3%C6%B7\u0026pci=0\u0026ct=1\u0026rn=20\u0026pn=1",
+        "forumId": "4b1417589f",
+        "forumUrl": "http://tieba.baidu.com/f?kw=%E6%96%B0%E5%AE%BF%E4%BA%8B%E4%BB%B6",
+        "logFileName": "/mnt/data/ftp/qsend/logs/20230927/202309271633-17596-4b1417589f.log",
+        "reportDate": "2023-09-27T20:33:26.000Z",
+        "siteId": "5264cfa89",
+        "siteUrl": "tieba.baidu.com/f/index/forumpark?pcn=%B5%E7%D3%B0\u0026pci=0\u0026ct=1\u0026rn=20\u0026pn=1",
         "type": "crawl-logs"
     },
     "_type": "crawl-logs",
     "sort": [
-        1695772799878
+        1695832406978
     ]
 }
