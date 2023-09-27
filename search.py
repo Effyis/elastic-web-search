@@ -75,24 +75,24 @@ def search():
 
 
 def hyperlink_urls_in_dict(d):
-    # Regular expression pattern for URLs
+    # Pattern to match URLs (with or without http/https) and file paths
     url_pattern = re.compile(
-        r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F])|[#])+')
-
-    # Regular expression pattern for file paths
-    filepath_pattern = re.compile(r'\/mnt\/[a-zA-Z0-9\/\.\-_]+')
+        r'(?:(?:http[s]?://)?(?:(?:[a-zA-Z0-9-]+)\.)+[a-zA-Z]{2,6}[\w/._-]*(?:\?[^\s]*)?)|(/[\w/._-]+)'
+    )
 
     for key, value in d.items():
         if isinstance(value, dict):
             hyperlink_urls_in_dict(value)
         elif isinstance(value, str):
-            # Replace URLs with hyperlinks
-            d[key] = url_pattern.sub(
-                r'<a href="\g<0>" target="_blank">\g<0></a>', value)
-
-            # Replace file paths with hyperlinks (with a placeholder href for now)
-            d[key] = filepath_pattern.sub(
-                r'<a href="#" target="_blank">\g<0></a>', d[key])
+            # Create the hyperlink for matched patterns
+            def repl(match):
+                url = match.group(0)
+                # If it doesn't start with 'http', consider it as a relative URL (add http)
+                if not url.startswith(('http://', 'https://', '/')):
+                    url = 'http://' + url
+                return f'<a href="{url}" target="_blank">{match.group(0)}</a>'
+            
+            d[key] = url_pattern.sub(repl, value)
 
     return d
 
