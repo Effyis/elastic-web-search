@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: search-vortex-logs
-          image: harbor.sgdctroy.net/socialgist-dev/elastic-web-search:v2.3
+          image: harbor.sgdctroy.net/socialgist-dev/elastic-web-search:v2.4
           ports:
             - containerPort: 5000
           volumeMounts:
