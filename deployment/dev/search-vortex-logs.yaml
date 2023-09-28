@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-vortex-logs
+spec:
+  replicas: 1  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: search-vortex-logs
+  template:
+    metadata:
+      labels:
+        app: search-vortex-logs
+    spec:
+      containers:
+        - name: search-vortex-logs
+          image: harbor.sgdctroy.net/socialgist-dev/elastic-web-search:v2.3
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: logs-pv
+              mountPath: /app/static/logs
+              subPath: logs
+      volumes:
+        - name: logs-pv
+          persistentVolumeClaim:
+            claimName: boards-crawler-vortex-logs
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-vortex-logs-service
+spec:
+  selector:
+    app: search-vortex-logs
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP  # Change to LoadBalancer or NodePort if needed
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: search-vortex-logs-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: search-vortex-logs.k8s-cat.sgdctroy.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: search-vortex-logs-service
+                port:
+                  number: 80

@@ -7,21 +7,18 @@ from elasticsearch import Elasticsearch
 import yaml
 
 # Load configurations from config.yaml
-with open("config.yaml", 'r') as stream:
+with open("config/config.yaml", 'r') as stream:
     try:
         config = yaml.safe_load(stream)
     except yaml.YAMLError as exc:
         print(exc)
 
 # Retrieve Elasticsearch configurations
-es_config = config.get("elasticsearch", {})
-host = es_config.get("host")
-port = es_config.get("port")
-scheme = es_config.get("scheme")
 index_pattern = es_config.get("index")
+es_hosts = [{"scheme": host["scheme"], "host": host["host"], "port": host["port"]} for host in elasticsearch_hosts]
 
 app = Flask(__name__)
-es = Elasticsearch([{'host': host, 'port': port, 'scheme': scheme}])
+es = Elasticsearch(es_hosts)
 
 
 @app.route('/')
