@@ -1,20 +1,5 @@
-{
-    "_id": "uCuL14oBsEbff3Ve8XEk",
-    "_index": "boards-crawl-logs-2023.09.27",
-    "_score": null,
-    "_source": {
-        "@timestamp": "2023-09-27T16:56:22.748Z",
-        "@version": "1",
-        "forumId": "527a9e8c3",
-        "forumUrl": "https://tieba.baidu.com/f?kw=%E9%93%85%E9%94%8C",
-        "logFileName": "/mnt/data/ftp/qsend/logs/20230927/202309271656-17076-527a9e8c3.log",
-        "reportDate": "2023-09-27T20:56:22.000Z",
-        "siteId": "5264d0518",
-        "siteUrl": "tieba.baidu.com/f/index/forumpark?pcn=%B9%A4%C5%A9%D2%B5%B2%FA%C6%B7\u0026pci=0\u0026ct=1\u0026rn=20\u0026pn=1",
-        "type": "crawl-logs"
-    },
-    "_type": "crawl-logs",
-    "sort": [
-        1695833782748
-    ]
-}
+http://al-test.sgdctroy.net:3003/static/logs/20230915/202309150039-129028-5d77ae7311d.log
+
+http://al-test.sgdctroy.net:3003/static/logs/20230928/202309280535-4117-62b4a90512c.log
+
+http://al-test.sgdctroy.net:3003/static/logs/20230928/202309280535-4117-62b4a90512c.log

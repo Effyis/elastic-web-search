@@ -2,7 +2,7 @@ from copy import deepcopy
 import json
 import re
 import urllib.parse
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, send_from_directory
 from elasticsearch import Elasticsearch
 import yaml
 
@@ -89,9 +89,8 @@ def hyperlink_urls_in_dict(d, query):
             if key == 'siteUrl' and not value.startswith(('http://', 'https://')):
                 value = 'http://' + value
             elif key == 'logFileName':
-                # Use Flask's url_for to generate the correct URL to test.txt
-                file_url = url_for('static', filename='logs/test.txt')
-                value = f'<a href="{file_url}" target="_blank">View Log File</a>'
+                value = value.replace('/mnt/data/ftp/qsend/', '/static/')
+                value = f'<a href="{value}" target="_blank">View Log File</a>'
 
             # Split the string using '<a' and '</a>' as delimiters
             # Only apply highlighting outside of these delimiters to avoid corrupting anchor tags

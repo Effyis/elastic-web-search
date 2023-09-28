@@ -72,7 +72,6 @@
                         <th>siteId</th>
                         <th>siteUrl</th>
                         <th>logFileName</th>
-                        <th>Download</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,7 +83,6 @@
                         <td>{{ result_pair["display"]["_source"]["siteId"]|safe }}</td>
                         <td><a href="{{ result_pair["display"]["_source"]["siteUrl"] }}" target="_blank">{{ result_pair["display"]["_source"]["siteUrl"] }}</a></td>
                         <td>{{ result_pair["display"]["_source"]["logFileName"]|safe }}</td>
-                        <td><a href="{{ url_for('static', filename='logs/test.txt') }}" download>Download</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
