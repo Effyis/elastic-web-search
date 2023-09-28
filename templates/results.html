@@ -62,18 +62,17 @@
         </div>
         
         <hr>
-        <div class="scrollable-table">
-        <!-- Rest of the code... -->
-
+        <div class="scrollable-table">        
             <table class="table table-bordered sticky-header compact-table">
                 <thead>
                     <tr>
                         <th>@timestamp</th>
                         <th>forumId</th>
                         <th>forumUrl</th>
-                        <th>logFileName</th>
                         <th>siteId</th>
                         <th>siteUrl</th>
+                        <th>logFileName</th>
+                        <th>Download</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,14 +81,16 @@
                         <td>{{ result_pair["display"]["_source"]["@timestamp"]|safe }}</td>
                         <td>{{ result_pair["display"]["_source"]["forumId"]|safe }}</td>
                         <td><a href="{{ result_pair["display"]["_source"]["forumUrl"] }}" target="_blank">{{ result_pair["display"]["_source"]["forumUrl"] }}</a></td>
-                        <td>{{ result_pair["display"]["_source"]["logFileName"]|safe }}</td>
                         <td>{{ result_pair["display"]["_source"]["siteId"]|safe }}</td>
                         <td><a href="{{ result_pair["display"]["_source"]["siteUrl"] }}" target="_blank">{{ result_pair["display"]["_source"]["siteUrl"] }}</a></td>
+                        <td>{{ result_pair["display"]["_source"]["logFileName"]|safe }}</td>
+                        <td><a href="{{ url_for('static', filename='logs/test.txt') }}" download>Download</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
