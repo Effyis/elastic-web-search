@@ -2,7 +2,7 @@ from copy import deepcopy
 import json
 import re
 import urllib.parse
-from flask import Flask, render_template, request, url_for, send_from_directory
+from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
 import yaml
 
@@ -36,7 +36,7 @@ def search():
     # Construct the search body based on the query
     if query:
         body = {
-            "size": 100,
+            "size": 10000,
             "query": {
                 "multi_match": {
                     "query": query,
