@@ -1,0 +1,8 @@
+elasticsearch_hosts:
+  - scheme: http
+    host: elastic-prod-client01.sgdctroy.net
+    port: 9200
+  - scheme: http
+    host: elastic-prod-client02.sgdctroy.net
+    port: 9200
+index: boards-crawl-logs-*
