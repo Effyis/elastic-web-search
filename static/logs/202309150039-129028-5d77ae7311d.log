@@ -1,0 +1,130 @@
+db:/mnt/data/ftp/qsend/5d77ae7311d/postdb	
+HOSTIP:
+decodedmetadata:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><input><adult>false</adult><agentName>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36</agentName><backwardsThread>0</backwardsThread><bbsType>pissedconsumer.com</bbsType><bbsVersion></bbsVersion><cachePosts>true</cachePosts><cgiPath>https://www.pissedconsumer.com/search-companies.html</cgiPath><charset>UTF-8</charset><country>US</country><dateIndexed>2023-01-13 17:09:48</dateIndexed><dateSubmitted></dateSubmitted><daysBackToCrawl>730</daysBackToCrawl><dispatchPartition>043</dispatchPartition><domain>pissedconsumer.com</domain><feedSources>421f8f244,47e014504</feedSources><fetchDelay>30</fetchDelay><forumCategories></forumCategories><forumContinuousCrawl>0</forumContinuousCrawl><forumId>5d77ae7311d</forumId><forumLink>https://my-advocate.pissedconsumer.com/review.html</forumLink><forumName>My Advocate</forumName><forumNumber>my-advocate</forumNumber><forumPriorityLevel>0</forumPriorityLevel><forumTicker></forumTicker><forumTopics></forumTopics><frequency>30</frequency><gmt>-4</gmt><hasUniqueSitePostId>1</hasUniqueSitePostId><hotLink>www.pissedconsumer.com</hotLink><initForumCrawlTime>1296000</initForumCrawlTime><initialCrawl>false</initialCrawl><linkToSite>1</linkToSite><loginUrl></loginUrl><maxForumCrawlTime>86400</maxForumCrawlTime><needLogin>false</needLogin><packageFile>20230915040549_5d77ae7311d.tar.gz</packageFile><parseMethod>0</parseMethod><password></password><postDateFormatId>10001</postDateFormatId><providerId>0</providerId><proxySetup>blazing|1_ppres|||3#luminati|unblock3|unblocker||7</proxySetup><registrationDateFormatId>0</registrationDateFormatId><siteAlias>www.pissedconsumer.com</siteAlias><siteContinuousCrawl>0</siteContinuousCrawl><siteId>48a9a8fea</siteId><siteLang>English</siteLang><sitePriorityLevel>0</sitePriorityLevel><siteTicker></siteTicker><siteTitle>Consumer reviews @ Pissed Consumer</siteTitle><siteTopic>Social</siteTopic><siteUrl>www.pissedconsumer.com</siteUrl><tag></tag><threadDateFormatId>10001</threadDateFormatId><timeoutValue>460</timeoutValue><topicsPath></topicsPath><useProxy>false</useProxy><username></username></input>SITEID:48a9a8fea
+SITEURL:www.pissedconsumer.com
+CGIPATH:https://www.pissedconsumer.com/search-companies.html
+TOPICSPATH:
+BBSTYPE:pissedconsumer.com
+NEEDLOGIN:0
+CGIPATH:https://www.pissedconsumer.com/search-companies.html
+SITEALIAS:www.pissedconsumer.com
+DAYSBACKTOCRAWL:730
+THREADDATEFORMATID:10001
+POSTDATEFORMATID:10001
+LANG:English
+PARSEMETHOD:0
+AGENTNAME:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36
+TIMEOUTVALUE:460
+SITETITLE:Consumer reviews @ Pissed Consumer
+FETCHDELAY:30
+USEPROXY:0
+CHARSET:UTF-8
+GMT:-4
+COUNTRY:US
+BACKWARDSTHREAD:0
+MAXFORUMCRAWLTIME:86400
+REGISTRATIONDATEFORMATID:0
+HASUNIQUESITEPOSTID:1
+FEEDSOURCES:421f8f244,47e014504
+SITETOPIC:Social
+INITFORUMCRAWLTIME:1296000
+FORUMID:5d77ae7311d
+FORUMNUM:my-advocate
+FORUMNAME:My Advocate
+DATEINDEXED:2023-01-13 17:09:48
+FORUMLINK:https://my-advocate.pissedconsumer.com/review.html
+FORUMTOPICS:
+FORUMCATEGORIES:
+PROVIDERID:0
+TAG:
+INITIAL_CRAWL:0
+SITEPRIORITYLEVEL:0
+FORUMPRIORITYLEVEL:0
+SITECONTINUOUSCRAWL:0
+FORUMCONTINUOUSCRAWL:0
+FREQUENCY:30
+PARTITION:043
+PROXYSETUP:blazing|1_ppres|||3#luminati|unblock3|unblocker||7
+28 records in datetimeformats
+2 records in hash table from swift START
+inserting into unparsedthreads
+importret:1	
+insert into hbase ok
+Texis Version: 7.06.1531283897 20180711 (x86_64-unknown-linux2.6.9-64-64)
+New proxy approach
+...resetting proxy setup v.2 ...
+first time setting PROXYSETUPS... current value for PROXYSETUP: blazing|1_ppres|||3#luminati|unblock3|unblocker||7
+PROXY_SELECTION:blazing
+zone:1_ppres
+strategy:
+exitnode_country:
+max retries with current proxy:3
+BLAZINGPX_ENABLE: 1
+BLAZINGPX_ZONE: 1
+BLAZINGPX_TYPE: ppres
+BLAZINGPX_COUNTRY: us
+BLAZINGPX_STRATEGY: random
+PROXY_SELECTION[final]:blazing
+forumid:5d77ae7311d	
+dateindexed:2023-01-13 17:09:48
+This site uses Fetch Counter!
+This site uses Fetch Counter!
+New proxy approach
+...resetting proxy setup v.2 ...
+PROXY_SELECTION:blazing
+zone:1_ppres
+strategy:
+exitnode_country:
+max retries with current proxy:3
+BLAZINGPX_ENABLE: 1
+BLAZINGPX_ZONE: 1
+BLAZINGPX_TYPE: ppres
+BLAZINGPX_COUNTRY: us
+BLAZINGPX_STRATEGY: random
+PROXY_SELECTION[final]:blazing
+2023-09-15 00:39:56- Crawling  - 5d77ae7311d
+sitevalidations dateindexed: 2023-01-13 17:09:48
+Indexed Date : 2023-01-13 00:00:00
+CRAWL BACK TO : 2022-12-14 00:00:00
+Link to forum: https://my-advocate.pissedconsumer.com/review.html
+///////////////////////////////////////////////////
+https://my-advocate.pissedconsumer.com/review.html - 1
+///////////////////////////////////////////////////
+[BLAZING] Proxy Pilot Res - http://la.residential.rayobyte.com:8000
+[USER AGENT] Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Safari/605.1.15
+-------------------- fetch stats --------------------
+Fetch response size: 72 KB
+------------------- / fetch stats -------------------
+-- Ok --
+[CHECKPAGECONTENT] Page content check ok
+indate[v.2.1]:2022-11-26 01:57:19
+------------------------------------------------
+indate[v.2.1]:2019-05-24 18:54:19
+------------------------------------------------
+https://my-advocate.pissedconsumer.com/review.html has no new posts
+----------------------------------fetching posts------------------------------------------
+LOADING PREVIOUSLY FAILED THREADS....
+
+preparing to execute query: 
+SELECT threadid, threadurl, basethreadurl, threadtitle, insertedthreadid, threadlastcrawled, failcount 
+            FROM unparsedthreads WHERE resolved=0
+            ORDER BY threadlastcrawled DESC
+PURGING all resolved and maxed-out unparsed threads...
+------------------------------------------
+----------------------------------summary-------------------------------------------------
+walkthreadlist FORUMLINK:https://my-advocate.pissedconsumer.com/review.html
+2023-09-15 00:40:30- Done crawling  - 5d77ae7311d
+Total Posts Inserted: 0			
+Total Threads Inserted: 0
+Total Threads Updated: 0
+Total Fetches: 1
+Total Fetch Errors: 0
+ferr:
+ftime:2023-09-14 19:53:15
+reading from file
+md5value:c39a2477a6c9b4ca76a4df8bb42b5888
+sending unparsedthreads
+md5 response:c39a2477a6c9b4ca76a4df8bb42b5888
+runtime:0.173099
+insert into hbase ok
+Retrievals finished.

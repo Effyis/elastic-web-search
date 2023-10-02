@@ -70,9 +70,10 @@
                         <th>forumUrl</th>
                         <th>siteId</th>
                         <th>siteUrl</th>
+                        <th>logFileSize</th>
                         <th>logFileName</th>
                     </tr>
-                </thead>
+                </thead>                
                 <tbody>
                     {% for result_pair in results %}
                     <tr>
@@ -81,10 +82,11 @@
                         <td><a href="{{ result_pair["display"]["_source"]["forumUrl"] }}" target="_blank">{{ result_pair["display"]["_source"]["forumUrl"] }}</a></td>
                         <td>{{ result_pair["display"]["_source"]["siteId"]|safe }}</td>
                         <td><a href="{{ result_pair["display"]["_source"]["siteUrl"] }}" target="_blank">{{ result_pair["display"]["_source"]["siteUrl"] }}</a></td>
+                        <td>{{ result_pair["display"]["_source"]["logFileSize"]|safe }}</td>
                         <td>{{ result_pair["display"]["_source"]["logFileName"]|safe }}</td>
                     </tr>
                     {% endfor %}
-                </tbody>
+                </tbody>                
             </table>
         </div>
         

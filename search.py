@@ -1,6 +1,7 @@
 from copy import deepcopy
 import json
 import re
+import os
 import urllib.parse
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
@@ -66,8 +67,20 @@ def search():
     for hit in results["hits"]["hits"]:
         # Make a deep copy to preserve the original
         original_hit = deepcopy(hit)
-        processed_hit = hyperlink_urls_in_dict(
-            hit, query)  # This modifies the hit in-place
+
+        # Add the file size info to the hit
+        log_file_path = os.path.join("static", "logs", hit["_source"]["logFileName"].replace("/mnt/data/ftp/qsend/", "").split("/")[-2], hit["_source"]["logFileName"].split("/")[-1])
+        #print(log_file_path)
+        if os.path.exists(log_file_path):
+            # Get the size in bytes
+            size_in_bytes = os.path.getsize(log_file_path)
+            # Convert to KB and add it to the hit
+            hit["_source"]["logFileSize"] = f"{size_in_bytes / 1024:.2f} KB"
+        else:
+            hit["_source"]["logFileSize"] = "File not found"
+
+        processed_hit = hyperlink_urls_in_dict(hit, query)  # This modifies the hit in-place
+
         processed_results.append({
             "original": original_hit,
             "display": processed_hit
