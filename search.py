@@ -1,11 +1,9 @@
-from copy import deepcopy
-import json
-import re
 import os
-import urllib.parse
+import re
+import yaml
+from copy import deepcopy
 from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
-import yaml
 
 # Load configurations from config.yaml
 with open("config/config.yaml", 'r') as stream:
@@ -85,9 +83,6 @@ def search():
             "display": processed_hit
         })
 
-    body_json = json.dumps(body)
-    encoded_body = urllib.parse.quote(body_json)
-
     return render_template('results.html', results=processed_results, query=query)
 
 
@@ -101,7 +96,7 @@ def hyperlink_urls_in_dict(d, query):
                 value = 'http://' + value
             elif key == 'logFileName':
                 value = value.replace('/mnt/data/ftp/qsend/', '/static/')
-                value = f'<a href="{value}" target="_blank">View Log File</a>'
+                value = f'<a href="{value}" target="_blank">Download Log File</a>'
 
             # Split the string using '<a' and '</a>' as delimiters
             # Only apply highlighting outside of these delimiters to avoid corrupting anchor tags
