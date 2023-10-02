@@ -8,21 +8,20 @@ from elasticsearch import Elasticsearch
 import yaml
 
 # Load configurations from config.yaml
-with open("config.yaml", 'r') as stream:
+with open("config/config.yaml", 'r') as stream:
     try:
         config = yaml.safe_load(stream)
     except yaml.YAMLError as exc:
         print(exc)
 
 # Retrieve Elasticsearch configurations
-es_config = config.get("elasticsearch", {})
-host = es_config.get("host")
-port = es_config.get("port")
-scheme = es_config.get("scheme")
-index_pattern = es_config.get("index")
+elasticsearch_hosts = config["elasticsearch_hosts"]
+elasticsearch_index = config["index"]
+
+es_hosts = [{"scheme": host["scheme"], "host": host["host"], "port": host["port"]} for host in elasticsearch_hosts]
 
 app = Flask(__name__)
-es = Elasticsearch([{'host': host, 'port': port, 'scheme': scheme}])
+es = Elasticsearch(es_hosts)
 
 
 @app.route('/')
@@ -60,7 +59,7 @@ def search():
             }
         }
 
-    results = es.search(index=index_pattern, body=body)
+    results = es.search(index=elasticsearch_index, body=body)
 
     processed_results = []
 
@@ -88,9 +87,8 @@ def search():
 
     body_json = json.dumps(body)
     encoded_body = urllib.parse.quote(body_json)
-    original_url = f"http://es-dev-data01.sgdctroy.net:9200/{index_pattern}/_search?source_content_type=application/json&source={encoded_body}"
 
-    return render_template('results.html', results=processed_results, original_url=original_url, query=query, index=index_pattern)
+    return render_template('results.html', results=processed_results, query=query)
 
 
 def hyperlink_urls_in_dict(d, query):

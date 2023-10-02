@@ -1,0 +1,11 @@
+elasticsearch_hosts:
+  - scheme: http
+    host: es-dev-data01.sgdctroy.net
+    port: 9200
+  - scheme: http
+    host: es-dev-data02.sgdctroy.net
+    port: 9200
+  - scheme: http
+    host: es-dev-data03.sgdctroy.net
+    port: 9200
+index: boards-crawl-logs-*
