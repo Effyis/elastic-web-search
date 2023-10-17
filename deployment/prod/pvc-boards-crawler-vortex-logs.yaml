@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim 
+apiVersion: v1 
+metadata: 
+    name: boards-crawler-vortex-logs
+    namespace: sg-boards-prod-crawlers 
+spec: 
+    accessModes: 
+      - ReadWriteMany 
+    storageClassName: rook-cephfs 
+    resources: 
+        requests: 
+            storage: 750Gi
