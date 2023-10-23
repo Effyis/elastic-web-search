@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always      
       containers:
         - name: search-vortex-logs
-          image: harbor.sgdctroy.net/socialgist-dev/elastic-web-search:v2.4
+          image: harbor.sgdctroy.net/sg-boards-prod/elastic-web-search:v2.4
           ports:
             - containerPort: 5000
           volumeMounts:
